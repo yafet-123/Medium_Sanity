@@ -3,9 +3,51 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Header from '../components/Headers'
 import {sanityClient, urlFor} from '../sanity'
-import {Post} from '../typeing'
 import Link from 'next/link'
 
+export interface Post {
+    _id: string
+    _createdAt: string
+    title: string
+    author: {
+        name: string
+        image: string
+    }
+    comments: Comment[]
+    description: string
+    mainImage: {
+        asset: {
+            url: string
+        }
+    }
+    slug: {
+        current: string
+    }
+    body: [object]
+}
+
+/**
+ * to define the Post u can look sanity localhost://3333 and bring the fileds
+**/
+
+export interface Comment {
+    approved: boolean
+    comment: string
+    email: string
+    name: string
+    post:{
+        _ref: string
+        _type: string
+    }
+    _createdAt: string
+    _id: string
+    _rev: string
+    _type: string
+    _updatedAt: string
+}
+/**
+ * this type definition that is need by the app this type can be found in the sanity schemas
+**/
 interface props{
     posts:[Post]
 }

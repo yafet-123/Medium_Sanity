@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Header from '../components/Headers'
 import {sanityClient, urlFor} from '../sanity'
-import {Post} from '../typeing'
+import {Post} from '../typeing.d.ts'
 import Link from 'next/link'
 
 interface props{

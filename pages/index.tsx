@@ -1,58 +1,18 @@
 import type { NextPage } from 'next'
+import React from 'react'
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Header from '../components/Headers'
 import {sanityClient, urlFor} from '../sanity'
+import {Post} from './@types'
 import Link from 'next/link'
 
-export interface Post {
-    _id: string
-    _createdAt: string
-    title: string
-    author: {
-        name: string
-        image: string
-    }
-    comments: Comment[]
-    description: string
-    mainImage: {
-        asset: {
-            url: string
-        }
-    }
-    slug: {
-        current: string
-    }
-    body: [object]
-}
-
-/**
- * to define the Post u can look sanity localhost://3333 and bring the fileds
-**/
-
-export interface Comment {
-    approved: boolean
-    comment: string
-    email: string
-    name: string
-    post:{
-        _ref: string
-        _type: string
-    }
-    _createdAt: string
-    _id: string
-    _rev: string
-    _type: string
-    _updatedAt: string
-}
-/**
- * this type definition that is need by the app this type can be found in the sanity schemas
-**/
 interface props{
     posts:[Post]
 }
 
-const Home: NextPage = ({posts}:props) => {
+const Home: React.FC<props> = ({posts}:props) => {
   return (
     <div className="max-w-7xl mx-auto">
         <Head>
@@ -69,7 +29,7 @@ const Home: NextPage = ({posts}:props) => {
                     is a place to write, read and connect
                 </h1>
                 <h2>
-                    It is easy and free to post your thinking on any topic and connect with millions of readers
+                    It iss easy and free to post your thinking on any topic and connect with millions of readers
                 </h2>
             </div>
             <img className="hidden md:inline-flex h-32 lg:h-full" 
@@ -110,7 +70,7 @@ export default Home
 
 // after span{" "} is add space
 
-export const getServerSideProps = async()=>{
+export const getServerSideProps:GetServerSideProps = async()=>{
     const query = `*[_type == "post"]{
         _id,
         title,

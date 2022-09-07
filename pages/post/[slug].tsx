@@ -1,53 +1,10 @@
-import Header from '../../components/Headers.tsx'
+import Header from '../../components/Headers'
 import { GetStaticProps } from 'next'
 import { sanityClient, urlFor } from '../../sanity'
 import PortableText from 'react-portable-text'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import {useState, useEffect} from 'react'
-
-export interface Post {
-    _id: string
-    _createdAt: string
-    title: string
-    author: {
-        name: string
-        image: string
-    }
-    comments: Comment[]
-    description: string
-    mainImage: {
-        asset: {
-            url: string
-        }
-    }
-    slug: {
-        current: string
-    }
-    body: [object]
-}
-
-/**
- * to define the Post u can look sanity localhost://3333 and bring the fileds
-**/
-
-export interface Comment {
-    approved: boolean
-    comment: string
-    email: string
-    name: string
-    post:{
-        _ref: string
-        _type: string
-    }
-    _createdAt: string
-    _id: string
-    _rev: string
-    _type: string
-    _updatedAt: string
-}
-/**
- * this type definition that is need by the app this type can be found in the sanity schemas
-**/
+import {Post} from '../@types'
 
 interface Props {
     post: Post;
@@ -63,7 +20,7 @@ interface IFormInput {
 // this is typescript that are used to define the form that are used in the comments
 // and we have to pass the IFormInput into react-hook-form useform in the form of templates
 // we do not have id but we pass the id we do that by passing the hidden input that have id
-function Post({ post }: Props){
+function Posts({ post }: Props){
     const [submitted, setSubmitted] = useState(false)
 
 	const {
@@ -234,7 +191,7 @@ function Post({ post }: Props){
 // we pass {...register('the name',{required:true})}
 // required true means if it is blank or not given give us error message
 // so in the bottom by giving the errors.the reaquired part it give us the error
-export default Post
+export default Posts
 
 // we need getStaticPaths to prefetch before it render the specific post 
 // all the post data must be prefetched by using the id and slung
